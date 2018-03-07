@@ -1,11 +1,11 @@
 <template>
   <div class="dialog">
-    <v-register />
+    <v-register :onRegister="onRegister"/>
   </div>
 </template>
 
 <script>
-import firebase from "@/firebase";
+import { createUser } from "@/firebase";
 
 import Register from "@/components/molecules/Register";
 export default {
@@ -15,8 +15,15 @@ export default {
     "v-register": Register
   },
 
-  mounted() {
-    console.log(firebase);
+  mounted() {},
+
+  methods: {
+    onRegister(input) {
+      const createdUserPromise = createUser(input);
+      createdUserPromise.then(user => {
+        console.log({ user });
+      });
+    }
   }
 };
 </script>

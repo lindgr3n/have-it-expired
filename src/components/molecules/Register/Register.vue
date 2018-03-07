@@ -4,7 +4,7 @@
     <md-card class="register-content"> 
       <md-field md-clearable>
         <label>Email</label>
-        <md-input v-model="initial"></md-input>
+        <md-input v-model="email"></md-input>
       </md-field>
 
       <md-field>
@@ -13,6 +13,7 @@
       </md-field>
       <md-button class="md-raised md-primary" v-on:click="register">Register</md-button>
     </md-card>
+    <span>or go back to <router-link to="/login">login</router-link></span>
   </div>
 </template>
 
@@ -20,9 +21,18 @@
 export default {
   name: "v-register",
 
+  props: ["onRegister"],
+
+  data() {
+    return {
+      email: "",
+      password: ""
+    };
+  },
+
   methods: {
     register() {
-      console.log("Wohooo");
+      this.onRegister({ email: this.email, password: this.password });
     }
   }
 };
