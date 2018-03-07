@@ -17,10 +17,8 @@ export default {
 
   methods: {
     onLogin(input) {
-      console.log(input);
       const loginPromise = login(input);
-      loginPromise.then(user => {
-        console.log("Loged in:", { user });
+      loginPromise.then(() => {
         this.$router.replace("/");
       });
     }

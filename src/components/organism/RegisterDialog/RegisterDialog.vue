@@ -20,8 +20,7 @@ export default {
   methods: {
     onRegister(input) {
       const createdUserPromise = createUser(input);
-      createdUserPromise.then(user => {
-        console.log("Registerd user:", { user });
+      createdUserPromise.then(() => {
         this.$router.replace("/login");
       });
     }
