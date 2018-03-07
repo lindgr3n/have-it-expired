@@ -1,10 +1,24 @@
 <template>
   <div>
-    <v-container>
-      <v-text slot="header" text="Pendel" v-bind:style="{fontSize: '24pt', fontWeight: 'bold'}" />
-      <v-text text="30" v-bind:style="{fontSize: '32pt', fontWeight: 'bold'}" />
-      <v-text slot="footer" text="Descr Vad är max char?" />
-    </v-container>
+    <div>
+      <md-card class="md-primary container">
+        <md-card-area>
+          <md-card-header>
+            <div class="md-title">{{days}}</div>
+            <div class="md-subhead">days left</div>
+          </md-card-header>
+
+          <md-card-content>
+            {{title}}
+          </md-card-content>
+        </md-card-area>  
+
+        <md-card-actions>
+          <md-button>Edit</md-button>
+          <md-button>Remove</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
   </div>
 </template>
 
@@ -20,11 +34,12 @@ export default {
     "v-text": Text
   },
 
+  props: ["item"],
+
   data() {
     return {
-      header: "Tåg",
-      text: "30",
-      descr: "Månadskort pendling"
+      days: this.item.expires,
+      title: this.item.title
     };
   }
 };
