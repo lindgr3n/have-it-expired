@@ -21,6 +21,20 @@ firebase.initializeApp(config);
 
 export default firebase;
 
+export function onAuthenticationChanged() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged(
+      user => {
+        resolve(user);
+        return;
+      },
+      error => {
+        reject();
+        console.log(error.message);
+      }
+    );
+  });
+}
 export function createUser({ email, password }) {
   return new Promise((resolve, reject) => {
     const createdUser = firebase
@@ -55,5 +69,27 @@ export function login({ email, password }) {
         reject(error.message);
       }
     );
+  });
+}
+
+export function getUser() {
+  return firebase.auth().currentUser;
+}
+
+export function signOut() {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signOut()
+      .then(
+        () => {
+          resolve(true);
+          return;
+        },
+        error => {
+          console.log(error.message);
+          reject();
+        }
+      );
   });
 }
