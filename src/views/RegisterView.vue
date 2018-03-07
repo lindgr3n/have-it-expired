@@ -7,7 +7,7 @@
 <script>
 import RegisterDialog from "@/components/organism/RegisterDialog";
 export default {
-  name: "register",
+  name: "register-view",
   components: {
     "v-register": RegisterDialog
   }
