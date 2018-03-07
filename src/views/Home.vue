@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="content">
-      <v-container />
+      <time-to-expire-card v-for="item in items" v-bind:key="item.id" :item="item"></time-to-expire-card>
     </div>
   </div>
 </template>
@@ -11,13 +11,18 @@ import TimeToExpireCard from "@/components/molecules/TimeToExpireCard";
 
 export default {
   name: "home",
+
   components: {
-    "v-container": TimeToExpireCard
+    "time-to-expire-card": TimeToExpireCard
+  },
+
+  mounted() {
+    this.items = this.$store.state.items;
   },
 
   data() {
     return {
-      items: {}
+      items: []
     };
   }
 };
@@ -25,9 +30,10 @@ export default {
 
 <style>
 .content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(auto-fill, 200px);
+  grid-gap: 20px;
+  justify-items: center;
 }
 </style>
