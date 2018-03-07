@@ -3,5 +3,11 @@
   "extends": [
     "plugin:vue/essential",
     "@vue/prettier"
-  ]
+  ],
+  "rules": {
+    "no-debugger": "off"
+  },
+  "globals": {
+    "process": true
+  }
 }
