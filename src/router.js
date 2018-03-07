@@ -5,19 +5,16 @@ import About from "./views/About.vue";
 import Login from "./views/Login.vue";
 import Register from "./views/RegisterView.vue";
 
+import { getUser } from "@/firebase";
+
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
+  mode: "history",
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/about",
-      name: "about",
-      component: About
+      path: "*",
+      redirect: "/login"
     },
     {
       path: "/login",
@@ -28,6 +25,37 @@ export default new Router({
       path: "/register",
       name: "register",
       component: Register
+    },
+    {
+      path: "/",
+      name: "home",
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: About,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const currentUser = getUser();
+
+  if (requiresAuth && !currentUser) {
+    next("login");
+  } else if (!requiresAuth && currentUser) {
+    next("/");
+  } else {
+    next();
+  }
+});
+
+export default router;
