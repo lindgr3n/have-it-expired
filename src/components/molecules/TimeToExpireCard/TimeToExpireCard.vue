@@ -1,23 +1,17 @@
 <template>
   <div>
     <div>
-      <md-card class="md-primary container">
-        <md-card-area>
-          <md-card-header>
-            <div class="md-title">{{days}}</div>
-            <div class="md-subhead">days left</div>
-          </md-card-header>
-
-          <md-card-content>
+      <v-card class="" >
+        <v-card-title class="title" primary-title>
+          <div class="headline">{{days}}</div>
+          <div class="grey--text">days left</div>
+        </v-card-title>
             {{title}}
-          </md-card-content>
-        </md-card-area>  
-
-        <md-card-actions>
-          <md-button>Edit</md-button>
-          <md-button>Remove</md-button>
-        </md-card-actions>
-      </md-card>
+        <v-card-actions>
+          <v-btn color="info">Edit</v-btn>
+          <v-btn color="info">Remove</v-btn>
+        </v-card-actions>
+      </v-card>
     </div>
   </div>
 </template>
@@ -46,4 +40,8 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  display: flex;
+  flex-direction: column;
+}
 </style>

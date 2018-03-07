@@ -1,6 +1,6 @@
 <template>
   <div>
-    <md-card class="md-primary container">
+    <v-card color="info">
       <div>
         <slot name="header"></slot>
       </div>
@@ -10,7 +10,7 @@
       <div>
         <slot name="footer"></slot>
       </div>
-    </md-card>
+    </v-card>
   </div>
 </template>
 

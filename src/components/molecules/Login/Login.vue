@@ -1,17 +1,13 @@
 <template>
-  <md-card class="login-content">
-    <md-field md-clearable>
-      <label>Email</label>
-      <md-input v-model="email"></md-input>
-    </md-field>
+  <v-card class="login-content">
+    <v-text-field label="Email" v-model="email" required>
+    </v-text-field>
 
-    <md-field>
-      <label>Password</label>
-      <md-input v-model="password" type="password"></md-input>
-    </md-field>
+    <v-text-field label="password" v-model="password" type="password" required>
+    </v-text-field>
     <p>Register here <router-link to="/register">Register</router-link></p>
-    <md-button class="md-raised md-primary" v-on:click="submit">Login</md-button>
-  </md-card>
+    <v-btn color="info" v-on:click="submit">Login</v-btn>
+  </v-card>
 </template>
 
 <script>

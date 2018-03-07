@@ -1,18 +1,14 @@
 <template>
   <div>
     <p>Please signup</p>
-    <md-card class="register-content"> 
-      <md-field md-clearable>
-        <label>Email</label>
-        <md-input v-model="email"></md-input>
-      </md-field>
+    <v-card class="register-content"> 
+      <v-text-field label="Email" v-model="email" required>
+      </v-text-field>
 
-      <md-field>
-        <label>Password</label>
-        <md-input v-model="password" type="password"></md-input>
-      </md-field>
-      <md-button class="md-raised md-primary" v-on:click="register">Register</md-button>
-    </md-card>
+      <v-text-field label="Password" v-model="password" type="password">
+      </v-text-field>
+      <v-btn color="info" v-on:click="register">Register</v-btn>
+    </v-card>
     <span>or go back to <router-link to="/login">login</router-link></span>
   </div>
 </template>
