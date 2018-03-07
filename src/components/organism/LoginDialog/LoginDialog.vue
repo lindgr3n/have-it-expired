@@ -20,7 +20,8 @@ export default {
       console.log(input);
       const loginPromise = login(input);
       loginPromise.then(user => {
-        console.log(user);
+        console.log("Loged in:", { user });
+        this.$router.replace("/");
       });
     }
   }

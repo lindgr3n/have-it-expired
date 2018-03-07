@@ -21,7 +21,8 @@ export default {
     onRegister(input) {
       const createdUserPromise = createUser(input);
       createdUserPromise.then(user => {
-        console.log({ user });
+        console.log("Registerd user:", { user });
+        this.$router.replace("/login");
       });
     }
   }
