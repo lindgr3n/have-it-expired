@@ -33,10 +33,27 @@ export function createUser({ email, password }) {
         return;
       },
       error => {
-        reject(error);
+        reject(error.message);
       }
     );
   });
   // const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
   // return createdUser;
+}
+
+export function login({ email, password }) {
+  return new Promise((resolve, reject) => {
+    const authenticatedUser = firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+    authenticatedUser.then(
+      user => {
+        resolve(user);
+        return;
+      },
+      error => {
+        reject(error.message);
+      }
+    );
+  });
 }
