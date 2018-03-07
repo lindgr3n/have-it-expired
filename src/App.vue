@@ -3,10 +3,30 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
+      <button @click="logout">Logout</button>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { signOut } from "@/firebase";
+export default {
+  name: "app",
+
+  methods: {
+    logout() {
+      const signOutPromise = signOut();
+      signOutPromise.then(success => {
+        if (success) {
+          this.$router.replace("/login");
+        }
+      });
+    }
+  }
+};
+</script>
+
 
 <style>
 #app {
