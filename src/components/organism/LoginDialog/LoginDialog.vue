@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import { login } from "@/firebase";
-
 import Login from "@/components/molecules/Login";
 export default {
   name: "login-dialog",
@@ -15,12 +13,23 @@ export default {
     "v-login": Login
   },
 
-  methods: {
-    onLogin(input) {
-      const loginPromise = login(input);
-      loginPromise.then(() => {
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
         this.$router.replace("/");
-      });
+      }
+    }
+  },
+
+  methods: {
+    onLogin({ email, password }) {
+      this.$store.dispatch("signInUser", { email, password });
     }
   }
 };

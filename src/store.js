@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { signInUser, signUpUser } from "./firebase";
+
 Vue.use(Vuex);
 
 const defaultState = {
@@ -22,8 +24,34 @@ const defaultState = {
 
 export default new Vuex.Store({
   state: {
-    items: defaultState
+    items: defaultState,
+    user: null
   },
-  mutations: {},
-  actions: {}
+  getters: {
+    user(state) {
+      return state.user;
+    }
+  },
+  mutations: {
+    setUser(state, payload) {
+      state.user = payload;
+    }
+  },
+  actions: {
+    signInUser({ commit }, payload) {
+      // TODO: commit loading
+      const loginPromise = signInUser(payload);
+      loginPromise.then(user => {
+        commit("setUser", user);
+        // TODO: commit success
+      });
+    },
+
+    signUpUser({ commit }, { email, password }) {
+      const createdUserPromise = signUpUser({ email, password });
+      createdUserPromise.then(user => {
+        commit("setUser", user);
+      });
+    }
+  }
 });

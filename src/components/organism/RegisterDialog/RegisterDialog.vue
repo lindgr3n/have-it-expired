@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import { createUser } from "@/firebase";
-
 import Register from "@/components/molecules/Register";
 export default {
   name: "v-register-dialog",
@@ -15,14 +13,23 @@ export default {
     "v-register": Register
   },
 
-  mounted() {},
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+
+  watch: {
+    user(value) {
+      if (value !== null && value !== undefined) {
+        this.$router.replace("/");
+      }
+    }
+  },
 
   methods: {
-    onRegister(input) {
-      const createdUserPromise = createUser(input);
-      createdUserPromise.then(() => {
-        this.$router.replace("/login");
-      });
+    onRegister({ email, password }) {
+      this.$store.dispatch("signUpUser", { email, password });
     }
   }
 };
