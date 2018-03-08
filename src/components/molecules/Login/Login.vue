@@ -1,14 +1,14 @@
 <template>
   <v-card class="login-content">
-    <v-text-field label="Email" v-model="email" required>
+    <v-text-field label="Email" v-model="email" required :error="showError">
     </v-text-field>
 
-    <v-text-field label="password" v-model="password" type="password" required>
+    <v-text-field label="password" v-model="password" type="password" required :error="showError">
     </v-text-field>
     <p>Register here <router-link to="/register">Register</router-link></p>
     <v-btn color="info" v-on:click="submit">Login</v-btn>
     <v-layout row v-if="error">
-      <v-snackbar :value="showSnackbar" color="error" top>
+      <v-snackbar :value="showError" color="error" top>
         {{ error }}
       </v-snackbar>
     </v-layout>
@@ -29,7 +29,7 @@ export default {
     };
   },
   computed: {
-    showSnackbar() {
+    showError() {
       return this.error !== null && this.error !== undefined;
     }
   },

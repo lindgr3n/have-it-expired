@@ -42,6 +42,10 @@ export default {
     onDismissed() {
       this.$store.dispatch("clearError");
     }
+  },
+
+  destroyed() {
+    this.$store.dispatch("clearError");
   }
 };
 </script>

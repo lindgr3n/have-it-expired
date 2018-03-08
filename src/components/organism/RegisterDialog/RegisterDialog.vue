@@ -1,6 +1,6 @@
 <template>
   <div class="dialog">
-    <v-register :onRegister="onRegister"/>
+    <v-register :onRegister="onRegister" :loading="loading" :error="error"/>
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+
+    loading() {
+      return this.$store.getters.loading;
+    },
+
+    error() {
+      return this.$store.getters.error;
     }
   },
 
@@ -31,6 +39,10 @@ export default {
     onRegister({ email, password }) {
       this.$store.dispatch("signUpUser", { email, password });
     }
+  },
+
+  destroyed() {
+    this.$store.dispatch("clearError");
   }
 };
 </script>

@@ -2,14 +2,19 @@
   <div>
     <p>Please signup</p>
     <v-card class="register-content"> 
-      <v-text-field label="Email" v-model="email" required>
+      <v-text-field label="Email" v-model="email" required :error="showError">
       </v-text-field>
 
-      <v-text-field label="Password" v-model="password" type="password">
+      <v-text-field label="Password" v-model="password" type="password" :error="showError">
       </v-text-field>
       <v-btn color="info" v-on:click="register">Register</v-btn>
+      <span>or go back to <router-link to="/login">login</router-link></span>
     </v-card>
-    <span>or go back to <router-link to="/login">login</router-link></span>
+    <v-layout row v-if="error">
+      <v-snackbar :value="showError" color="error" top>
+        {{ error }}
+      </v-snackbar>
+    </v-layout>
   </div>
 </template>
 
@@ -17,13 +22,19 @@
 export default {
   name: "v-register",
 
-  props: ["onRegister"],
+  props: ["onRegister", "loading", "error"],
 
   data() {
     return {
       email: "",
       password: ""
     };
+  },
+
+  computed: {
+    showError() {
+      return this.error !== null && this.error !== undefined;
+    }
   },
 
   methods: {
