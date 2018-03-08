@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { signInUser, signUpUser, signOutUser } from "./firebase";
+import { signInUser, signupUser, signOutUser } from "./firebase";
 
 Vue.use(Vuex);
 
@@ -33,6 +33,9 @@ export default new Vuex.Store({
     user(state) {
       return state.user;
     },
+    items(state) {
+      return state.items;
+    },
     error(state) {
       return state.error;
     },
@@ -43,6 +46,9 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+    },
+    setItems(state, payload) {
+      state.items = payload;
     },
     setLoading(state, payload) {
       state.loading = payload;
@@ -70,9 +76,9 @@ export default new Vuex.Store({
         });
     },
 
-    signUpUser({ commit }, { email, password }) {
+    signupUser({ commit }, { email, password }) {
       commit("clearError");
-      const createdUserPromise = signUpUser({ email, password });
+      const createdUserPromise = signupUser({ email, password });
       createdUserPromise
         .then(user => {
           commit("setUser", user);

@@ -1,15 +1,15 @@
 <template>
   <div class="content">
-    <v-register />
+    <v-signup />
   </div>
 </template>
 
 <script>
-import RegisterDialog from "@/components/organism/RegisterDialog";
+import SignupDialog from "@/components/organism/SignupDialog";
 export default {
-  name: "register-view",
+  name: "signup-view",
   components: {
-    "v-register": RegisterDialog
+    "v-signup": SignupDialog
   }
 };
 </script>

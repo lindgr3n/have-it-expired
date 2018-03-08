@@ -1,16 +1,16 @@
 <template>
   <div class="dialog">
-    <v-register :onRegister="onRegister" :loading="loading" :error="error"/>
+    <v-signup :onSignup="onSignup" :loading="loading" :error="error"/>
   </div>
 </template>
 
 <script>
-import Register from "@/components/molecules/Register";
+import Signup from "@/components/molecules/Signup";
 export default {
-  name: "v-register-dialog",
+  name: "v-signup-dialog",
 
   components: {
-    "v-register": Register
+    "v-signup": Signup
   },
 
   computed: {
@@ -36,8 +36,8 @@ export default {
   },
 
   methods: {
-    onRegister({ email, password }) {
-      this.$store.dispatch("signUpUser", { email, password });
+    onSignup({ email, password }) {
+      this.$store.dispatch("signupUser", { email, password });
     }
   },
 

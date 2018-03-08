@@ -1,13 +1,12 @@
 <template>
   <div>
-    <p>Please signup</p>
-    <v-card class="register-content"> 
+    <v-card class="signup-content"> 
+      <p>Please signup</p>
       <v-text-field label="Email" v-model="email" required :error="showError">
       </v-text-field>
-
       <v-text-field label="Password" v-model="password" type="password" :error="showError">
       </v-text-field>
-      <v-btn color="info" v-on:click="register">Register</v-btn>
+      <v-btn color="info" v-on:click="signup">Signup</v-btn>
       <span>or go back to <router-link to="/login">login</router-link></span>
     </v-card>
     <v-layout row v-if="error">
@@ -20,9 +19,9 @@
 
 <script>
 export default {
-  name: "v-register",
+  name: "v-signup",
 
-  props: ["onRegister", "loading", "error"],
+  props: ["onSignup", "loading", "error"],
 
   data() {
     return {
@@ -38,15 +37,15 @@ export default {
   },
 
   methods: {
-    register() {
-      this.onRegister({ email: this.email, password: this.password });
+    signup() {
+      this.onSignup({ email: this.email, password: this.password });
     }
   }
 };
 </script>
 
 <style scoped>
-.register-content {
+.signup-content {
   padding: 20px;
 }
 </style>

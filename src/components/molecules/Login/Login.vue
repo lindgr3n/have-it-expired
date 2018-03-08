@@ -5,7 +5,7 @@
 
     <v-text-field label="password" v-model="password" type="password" required :error="showError">
     </v-text-field>
-    <p>Register here <router-link to="/register">Register</router-link></p>
+    <p>Signup here <router-link to="/signup">Signup</router-link></p>
     <v-btn color="info" v-on:click="submit">Login</v-btn>
     <v-layout row v-if="error">
       <v-snackbar :value="showError" color="error" top>

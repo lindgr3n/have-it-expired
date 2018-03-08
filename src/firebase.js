@@ -34,7 +34,7 @@ export function onAuthenticationChanged() {
     );
   });
 }
-export function signUpUser({ email, password }) {
+export function signupUser({ email, password }) {
   return new Promise((resolve, reject) => {
     const createdUser = firebase
       .auth()
