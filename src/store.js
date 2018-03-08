@@ -45,16 +45,21 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser(state, payload) {
-      state.user = payload;
+      if (!payload) {
+        state.user = payload;
+        return;
+      }
+      const { uid, email } = payload;
+      state.user = { key: uid, email };
     },
     setItems(state, payload) {
       state.items = payload;
     },
-    setLoading(state, payload) {
-      state.loading = payload;
+    setLoading(state, { loading }) {
+      state.loading = loading;
     },
-    setError(state, payload) {
-      state.error = payload;
+    setError(state, message) {
+      state.error = message;
     },
     clearError(state) {
       state.error = null;
@@ -100,10 +105,6 @@ export default new Vuex.Store({
           console.log(error.message);
           commit("setError", error.message);
         });
-    },
-
-    clearError({ commit }) {
-      commit("clearError");
     }
   }
 });
