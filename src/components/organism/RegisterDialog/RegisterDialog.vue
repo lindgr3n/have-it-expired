@@ -16,6 +16,7 @@ export default {
   methods: {
     onSubmit(input) {
       console.log("Dialog", input);
+      this.$store.dispatch("addItem", input);
     }
   }
 };

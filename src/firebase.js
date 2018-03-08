@@ -85,3 +85,20 @@ export function signOutUser() {
       });
   });
 }
+
+export function addItemForUser(user, item) {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref(`GXwwxbnqa1PSPjAQtO7Q9iC0coA3/items`)
+      .push(item)
+      .then(data => {
+        console.log("Added", data);
+        resolve(data);
+        return;
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}

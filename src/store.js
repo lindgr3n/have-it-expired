@@ -1,7 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { signInUser, signupUser, signOutUser } from "./firebase";
+import {
+  signInUser,
+  signupUser,
+  signOutUser,
+  addItemForUser
+} from "./firebase";
 import logger from "./logger";
 
 Vue.use(Vuex);
@@ -56,6 +61,9 @@ export default new Vuex.Store({
     setItems(state, payload) {
       state.items = payload;
     },
+    addItem(state, payload) {
+      state.items = [state.items, ...payload];
+    },
     setLoading(state, { loading }) {
       state.loading = loading;
     },
@@ -101,6 +109,23 @@ export default new Vuex.Store({
       signOutPromise
         .then(() => {
           commit("setUser", null);
+        })
+        .catch(error => {
+          logger.info(error.message);
+          commit("setError", error.message);
+        });
+    },
+
+    addItem({ commit }, payload) {
+      commit("clearError");
+      const addItemPromise = addItemForUser(payload);
+      addItemPromise
+        .then(data => {
+          const key = data.key;
+          commit("addItem", {
+            ...payload,
+            id: key
+          });
         })
         .catch(error => {
           logger.info(error.message);
