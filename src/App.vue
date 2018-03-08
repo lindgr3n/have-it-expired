@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div id="app">
+    <div id="app" v-if="!isLoading">
       <div id="nav">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
@@ -8,6 +8,9 @@
       </div>
       <router-view/>
     </div>
+     <div v-if="isLoading">
+      <v-progress-linear :indeterminate="true"></v-progress-linear>
+     </div>
   </v-app>
 </template>
 
@@ -18,6 +21,9 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+    isLoading() {
+      return this.$store.getters.loading;
     }
   },
 
