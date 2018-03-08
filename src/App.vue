@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import { signOut } from "@/firebase";
+import { signOutUser } from "@/firebase";
 export default {
   name: "app",
 
   methods: {
     logout() {
-      const signOutPromise = signOut();
+      const signOutPromise = signOutUser();
       signOutPromise.then(success => {
         if (success) {
           this.$router.replace("/login");
