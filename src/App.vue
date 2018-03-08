@@ -3,6 +3,7 @@
     <div id="app" v-if="!isLoading">
       <div id="nav" v-if="user">
         <router-link to="/">Home</router-link> |
+        <router-link to="/register">Register</router-link>
         <router-link to="/about">About</router-link>
         <button @click="logout">Logout</button>
       </div>
