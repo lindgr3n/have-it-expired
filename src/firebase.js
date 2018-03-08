@@ -29,8 +29,7 @@ export function onAuthenticationChanged() {
         return;
       },
       error => {
-        console.log(error.message);
-        reject(error.message);
+        reject(error);
       }
     );
   });
@@ -47,8 +46,7 @@ export function signUpUser({ email, password }) {
         return;
       })
       .catch(error => {
-        console.log(error.message);
-        reject(error.message);
+        reject(error);
       });
   });
 }
