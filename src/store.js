@@ -56,12 +56,12 @@ export default new Vuex.Store({
   },
   actions: {
     signInUser({ commit }, payload) {
+      commit("clearError");
       // TODO: commit loading
       const loginPromise = signInUser(payload);
       loginPromise
         .then(user => {
           commit("setUser", user);
-          commit("clearError");
           // TODO: commit success
         })
         .catch(error => {
@@ -71,11 +71,11 @@ export default new Vuex.Store({
     },
 
     signUpUser({ commit }, { email, password }) {
+      commit("clearError");
       const createdUserPromise = signUpUser({ email, password });
       createdUserPromise
         .then(user => {
           commit("setUser", user);
-          commit("clearError");
         })
         .catch(error => {
           console.log(error.message);
@@ -84,11 +84,11 @@ export default new Vuex.Store({
     },
 
     signOutUser({ commit }) {
+      commit("clearError");
       const signOutPromise = signOutUser();
       signOutPromise
         .then(() => {
           commit("setUser", null);
-          commit("clearError");
         })
         .catch(error => {
           console.log(error.message);
