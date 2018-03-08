@@ -1,6 +1,6 @@
 <template>
   <div class="dialog">
-    <v-login :onLogin="onLogin" />
+    <v-login :onLogin="onLogin" :loading="loading" :error="error" />
   </div>
 </template>
 
@@ -16,6 +16,14 @@ export default {
   computed: {
     user() {
       return this.$store.getters.user;
+    },
+
+    loading() {
+      return this.$store.getters.loading;
+    },
+
+    error() {
+      return this.$store.getters.error;
     }
   },
 
@@ -30,6 +38,9 @@ export default {
   methods: {
     onLogin({ email, password }) {
       this.$store.dispatch("signInUser", { email, password });
+    },
+    onDismissed() {
+      this.$store.dispatch("clearError");
     }
   }
 };
