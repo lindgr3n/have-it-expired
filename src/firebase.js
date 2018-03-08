@@ -29,8 +29,8 @@ export function onAuthenticationChanged() {
         return;
       },
       error => {
-        reject();
         console.log(error.message);
+        reject(error.message);
       }
     );
   });
@@ -40,19 +40,17 @@ export function signUpUser({ email, password }) {
     const createdUser = firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    createdUser.then(
-      user => {
+    createdUser
+      .then(user => {
         // Redirect to login
         resolve(user);
         return;
-      },
-      error => {
+      })
+      .catch(error => {
+        console.log(error.message);
         reject(error.message);
-      }
-    );
+      });
   });
-  // const createdUser = await firebase.auth().createUserWithEmailAndPassword(email, password);
-  // return createdUser;
 }
 
 export function signInUser({ email, password }) {
@@ -60,15 +58,14 @@ export function signInUser({ email, password }) {
     const authenticatedUser = firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
-    authenticatedUser.then(
-      user => {
+    authenticatedUser
+      .then(user => {
         resolve(user);
         return;
-      },
-      error => {
-        reject(error.message);
-      }
-    );
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 
@@ -81,15 +78,12 @@ export function signOutUser() {
     firebase
       .auth()
       .signOut()
-      .then(
-        () => {
-          resolve(true);
-          return;
-        },
-        error => {
-          console.log(error.message);
-          reject();
-        }
-      );
+      .then(() => {
+        resolve(true);
+        return;
+      })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
