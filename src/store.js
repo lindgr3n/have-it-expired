@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { signInUser, signUpUser } from "./firebase";
+import { signInUser, signUpUser, signOutUser } from "./firebase";
 
 Vue.use(Vuex);
 
@@ -25,33 +25,79 @@ const defaultState = {
 export default new Vuex.Store({
   state: {
     items: defaultState,
-    user: null
+    user: null,
+    loading: false,
+    error: null
   },
   getters: {
     user(state) {
       return state.user;
+    },
+    error(state) {
+      return state.error;
+    },
+    loading(state) {
+      return state.loading;
     }
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload;
+    },
+    setLoading(state, payload) {
+      state.loading = payload;
+    },
+    setError(state, payload) {
+      state.error = payload;
+    },
+    clearError(state) {
+      state.error = null;
     }
   },
   actions: {
     signInUser({ commit }, payload) {
       // TODO: commit loading
       const loginPromise = signInUser(payload);
-      loginPromise.then(user => {
-        commit("setUser", user);
-        // TODO: commit success
-      });
+      loginPromise
+        .then(user => {
+          commit("setUser", user);
+          commit("clearError");
+          // TODO: commit success
+        })
+        .catch(error => {
+          console.log(error.message);
+          commit("setError", error.message);
+        });
     },
 
     signUpUser({ commit }, { email, password }) {
       const createdUserPromise = signUpUser({ email, password });
-      createdUserPromise.then(user => {
-        commit("setUser", user);
-      });
+      createdUserPromise
+        .then(user => {
+          commit("setUser", user);
+          commit("clearError");
+        })
+        .catch(error => {
+          console.log(error.message);
+          commit("setError", error.message);
+        });
+    },
+
+    signOutUser({ commit }) {
+      const signOutPromise = signOutUser();
+      signOutPromise
+        .then(() => {
+          commit("setUser", null);
+          commit("clearError");
+        })
+        .catch(error => {
+          console.log(error.message);
+          commit("setError", error.message);
+        });
+    },
+
+    clearError({ commit }) {
+      commit("clearError");
     }
   }
 });
