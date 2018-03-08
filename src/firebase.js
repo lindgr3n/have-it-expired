@@ -35,7 +35,7 @@ export function onAuthenticationChanged() {
     );
   });
 }
-export function createUser({ email, password }) {
+export function signUpUser({ email, password }) {
   return new Promise((resolve, reject) => {
     const createdUser = firebase
       .auth()
@@ -55,7 +55,7 @@ export function createUser({ email, password }) {
   // return createdUser;
 }
 
-export function login({ email, password }) {
+export function signInUser({ email, password }) {
   return new Promise((resolve, reject) => {
     const authenticatedUser = firebase
       .auth()
@@ -76,7 +76,7 @@ export function getUser() {
   return firebase.auth().currentUser;
 }
 
-export function signOut() {
+export function signOutUser() {
   return new Promise((resolve, reject) => {
     firebase
       .auth()
