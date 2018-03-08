@@ -12,18 +12,25 @@
 </template>
 
 <script>
-import { signOutUser } from "@/firebase";
 export default {
   name: "app",
 
+  computed: {
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+
+  watch: {
+    user(value) {
+      if (value === null || value === undefined) {
+        this.$router.replace("/login");
+      }
+    }
+  },
   methods: {
     logout() {
-      const signOutPromise = signOutUser();
-      signOutPromise.then(success => {
-        if (success) {
-          this.$router.replace("/login");
-        }
-      });
+      this.$store.dispatch("signOutUser");
     }
   }
 };
