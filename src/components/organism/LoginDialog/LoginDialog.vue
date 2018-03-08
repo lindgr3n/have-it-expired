@@ -40,12 +40,12 @@ export default {
       this.$store.dispatch("signInUser", { email, password });
     },
     onDismissed() {
-      this.$store.dispatch("clearError");
+      this.$store.commit("clearError");
     }
   },
 
   destroyed() {
-    this.$store.dispatch("clearError");
+    this.$store.commit("clearError");
   }
 };
 </script>

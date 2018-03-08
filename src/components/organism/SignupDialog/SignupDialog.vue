@@ -7,7 +7,7 @@
 <script>
 import Signup from "@/components/molecules/Signup";
 export default {
-  name: "v-signup-dialog",
+  name: "signup-dialog",
 
   components: {
     "v-signup": Signup
@@ -42,7 +42,7 @@ export default {
   },
 
   destroyed() {
-    this.$store.dispatch("clearError");
+    this.$store.commit("clearError");
   }
 };
 </script>
