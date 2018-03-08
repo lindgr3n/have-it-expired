@@ -20,13 +20,15 @@ new Vue({
     firebase
   },
   created() {
+    this.$store.commit("setLoading", { loading: true });
     onAuthenticationChanged().then(user => {
-      console.log("authChanged", user);
       if (user) {
-        this.$router.push("/home");
+        this.$store.commit("setUser", user);
+        this.$router.push("/");
       } else {
         this.$router.push("/login");
       }
+      this.$store.commit("setLoading", { loading: false });
     });
   },
 
