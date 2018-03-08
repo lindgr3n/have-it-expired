@@ -11,13 +11,15 @@ Vue.config.productionTip = false;
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css"; // Ensure you are using css-loader
 
+import logger from "./logger";
 Vue.use(Vuetify);
 
 new Vue({
   router,
   store,
   data: {
-    firebase
+    firebase,
+    logger
   },
   created() {
     this.$store.commit("setLoading", { loading: true });

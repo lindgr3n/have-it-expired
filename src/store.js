@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import { signInUser, signupUser, signOutUser } from "./firebase";
+import logger from "./logger";
 
 Vue.use(Vuex);
 
@@ -76,7 +77,7 @@ export default new Vuex.Store({
           // TODO: commit success
         })
         .catch(error => {
-          console.log(error.message);
+          logger.info(error.message);
           commit("setError", error.message);
         });
     },
@@ -89,7 +90,7 @@ export default new Vuex.Store({
           commit("setUser", user);
         })
         .catch(error => {
-          console.log(error.message);
+          logger.info(error.message);
           commit("setError", error.message);
         });
     },
@@ -102,7 +103,7 @@ export default new Vuex.Store({
           commit("setUser", null);
         })
         .catch(error => {
-          console.log(error.message);
+          logger.info(error.message);
           commit("setError", error.message);
         });
     }
