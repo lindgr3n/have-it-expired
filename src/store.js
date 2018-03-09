@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { calculateExpires } from "./utils/utils";
+
 import {
   signInUser,
   signupUser,
@@ -125,14 +127,18 @@ export default new Vuex.Store({
         });
     },
 
-    addItem({ commit, state }, payload) {
+    addItem({ commit, state }, item) {
       commit("clearError");
-      const addItemPromise = addItemForUser(state.user, payload);
+
+      // calculate expires
+      const expires = calculateExpires(item.bought, item.daysValid);
+      item.expires = expires;
+      const addItemPromise = addItemForUser(state.user, item);
       addItemPromise
         .then(data => {
           const key = data.key;
-          const item = Object.assign({}, payload, { id: key });
-          commit("addItem", item);
+          const newItem = Object.assign({}, item, { id: key });
+          commit("addItem", newItem);
         })
         .catch(error => {
           logger.info(error.message);
