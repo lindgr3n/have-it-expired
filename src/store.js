@@ -26,6 +26,12 @@ const defaultState = {
     daysValid: "20",
     title: "Test",
     expires: "2018-03-29"
+  },
+  "-L7AzSA5n31lMuPWzJ-i": {
+    bought: "2018-02-20",
+    daysValid: "30",
+    title: "Test",
+    expires: "2018-03-22"
   }
 };
 
