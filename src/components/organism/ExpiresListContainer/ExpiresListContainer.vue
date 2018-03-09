@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <expires-list :list="list"/>
-  </div>
+  <expires-list :list="list"/>
 </template>
 
 <script>
@@ -21,7 +19,7 @@ export default {
       // Calculate DaysLeft for each
       return Object.keys(this.items).map(key => {
         const daysLeft = daysToExpire(this.items[key].expires);
-        return Object.assign({}, this.items[key], { expires: daysLeft });
+        return Object.assign({}, this.items[key], { daysLeft });
       });
     }
   }
