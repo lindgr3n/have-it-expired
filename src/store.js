@@ -12,19 +12,15 @@ import logger from "./logger";
 Vue.use(Vuex);
 
 const defaultState = {
-  key1: {
-    id: "12345",
-    title: "Månadskort norrtåg",
-    bought: "2018-01-01",
-    expires: "2018-01-31",
-    daysValid: "30"
+  "-L7AywwIk-REEQpsCllK": {
+    bought: "2018-03-09",
+    daysValid: "30",
+    title: "Månadskort"
   },
-  key2: {
-    id: "1234523",
-    title: "Månadskort Iksu",
-    bought: "2018-01-01",
-    expires: "2018-12-31",
-    daysValid: "365"
+  "-L7AzSOon31lMuPWzJ-i": {
+    bought: "2018-03-09",
+    daysValid: "20",
+    title: "Test"
   }
 };
 
@@ -58,11 +54,11 @@ export default new Vuex.Store({
       const { uid, email } = payload;
       state.user = { key: uid, email };
     },
-    setItems(state, payload) {
-      state.items = payload;
+    setItems(state, items) {
+      state.items = items;
     },
-    addItem(state, payload) {
-      state.items = [state.items, ...payload];
+    addItem(state, item) {
+      state.items.push(item);
     },
     setLoading(state, { loading }) {
       state.loading = loading;
@@ -116,16 +112,14 @@ export default new Vuex.Store({
         });
     },
 
-    addItem({ commit }, payload) {
+    addItem({ commit, state }, payload) {
       commit("clearError");
-      const addItemPromise = addItemForUser(payload);
+      const addItemPromise = addItemForUser(state.user, payload);
       addItemPromise
         .then(data => {
           const key = data.key;
-          commit("addItem", {
-            ...payload,
-            id: key
-          });
+          const item = Object.assign({}, payload, { id: key });
+          commit("addItem", item);
         })
         .catch(error => {
           logger.info(error.message);

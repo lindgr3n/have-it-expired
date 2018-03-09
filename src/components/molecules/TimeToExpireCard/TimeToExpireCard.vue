@@ -32,9 +32,16 @@ export default {
 
   data() {
     return {
-      days: this.item.expires,
-      title: this.item.title
+      bought: this.item.bought,
+      title: this.item.title,
+      daysValid: this.item.daysValid
     };
+  },
+
+  computed: {
+    days() {
+      return this.item.bought;
+    }
   }
 };
 </script>
