@@ -1,19 +1,22 @@
 <template>
   <div class="home">
     <div class="content">
-      <time-to-expire-card v-for="item in items" v-bind:key="item.id" :item="item"></time-to-expire-card>
+      <!-- <time-to-expire-card v-for="item in items" v-bind:key="item.id" :item="item"></time-to-expire-card> -->
+      <expires-list :items="items"/>
     </div>
   </div>
 </template>
 
 <script>
 import TimeToExpireCard from "@/components/molecules/TimeToExpireCard";
+import ExpiresList from "@/components/molecules/ExpiresList";
 
 export default {
   name: "home",
 
   components: {
-    "time-to-expire-card": TimeToExpireCard
+    "time-to-expire-card": TimeToExpireCard,
+    "expires-list": ExpiresList
   },
 
   mounted() {
@@ -32,8 +35,8 @@ export default {
 .content {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(auto-fill, 200px);
-  grid-gap: 20px;
+  /* grid-template-rows: repeat(auto-fill, 1fr); */
+  /* grid-gap: 20px; */
   justify-items: center;
 }
 </style>
