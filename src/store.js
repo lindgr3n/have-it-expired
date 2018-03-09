@@ -5,7 +5,8 @@ import {
   signInUser,
   signupUser,
   signOutUser,
-  addItemForUser
+  addItemForUser,
+  addUser
 } from "./firebase";
 import logger from "./logger";
 
@@ -46,13 +47,11 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setUser(state, payload) {
-      if (!payload) {
-        state.user = payload;
-        return;
-      }
-      const { uid, email } = payload;
-      state.user = { key: uid, email };
+    setUser(state, user) {
+      state.user = user;
+    },
+    clearUser(state) {
+      state.user = null;
     },
     setItems(state, items) {
       state.items = items;
@@ -91,7 +90,21 @@ export default new Vuex.Store({
       const createdUserPromise = signupUser({ email, password });
       createdUserPromise
         .then(user => {
-          commit("setUser", user);
+          const newUser = Object.assign(
+            {},
+            { key: user.uid, email: user.email }
+          );
+
+          // Store user to datbase
+          const addUserPromise = addUser(newUser);
+          addUserPromise
+            .then(() => {
+              commit("setUser", newUser);
+            })
+            .catch(error => {
+              logger.info(error.message);
+              commit("setError", error.message);
+            });
         })
         .catch(error => {
           logger.info(error.message);
@@ -104,7 +117,7 @@ export default new Vuex.Store({
       const signOutPromise = signOutUser();
       signOutPromise
         .then(() => {
-          commit("setUser", null);
+          commit("clearUser");
         })
         .catch(error => {
           logger.info(error.message);

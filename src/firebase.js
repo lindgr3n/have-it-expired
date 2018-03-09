@@ -41,7 +41,6 @@ export function signupUser({ email, password }) {
       .createUserWithEmailAndPassword(email, password);
     createdUser
       .then(user => {
-        // Redirect to login
         resolve(user);
         return;
       })
@@ -59,6 +58,23 @@ export function signInUser({ email, password }) {
     authenticatedUser
       .then(user => {
         resolve(user);
+        return;
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+export function addUser(user) {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref("users")
+      .child(user.key)
+      .set(user)
+      .then(data => {
+        resolve(data);
         return;
       })
       .catch(error => {
