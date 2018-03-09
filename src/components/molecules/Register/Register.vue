@@ -45,12 +45,6 @@ export default {
     },
 
     onSubmitForm() {
-      // TOOD: call parent onSubmit
-      console.log({
-        title: this.title,
-        bought: this.bought,
-        daysValid: this.daysValid
-      });
       this.onSubmit({
         title: this.title,
         bought: this.bought,
