@@ -1,20 +1,20 @@
 <template>
-<div class="content">
     <v-data-table
     :headers="headers"
     :items="list"
     hide-actions
-    class="elevation-1"
-  >
+    v-bind:pagination.sync="defaultSort"
+    class="elevation-1 expireslist"
+    >
     <template slot="items" slot-scope="props">
-      <td>{{ props.item.title }}</td>
-      <!-- <td class="text-xs-right">{{ props.item.bought }}</td>
-      <td >{{ props.item.daysValid }}</td> -->
-      <td >{{ props.item.daysLeft }}</td>
+      <td class="text-xs-left">{{ props.item.title }}</td>
+      <td class="text-xs-left">{{ props.item.bought }}</td>
+      <td class="text-xs-left" >{{ props.item.daysValid }}</td>
+      <td class="text-xs-left">{{ props.item.daysLeft }}</td>
       
     </template>
   </v-data-table>
-</div>
+
 </template>
 
 <script>
@@ -39,18 +39,18 @@ export default {
     return {
       headers: [
         { text: "Title", value: "title" },
-        // { text: "Bought", value: "bought" },
-        // { text: "Days valid", value: "daysValid" },
+        { text: "Bought", value: "bought" },
+        { text: "Days valid", value: "daysValid" },
         { text: "Days left", value: "daysLeft" }
-      ]
+      ],
+      defaultSort: { sortBy: "daysLeft", descending: false, rowsPerPage: -1 }
     };
   }
 };
 </script>
 
 <style scoped>
-.content,
-.content > ul {
-  width: 80%;
+.expireslist {
+  width: 100%;
 }
 </style>
