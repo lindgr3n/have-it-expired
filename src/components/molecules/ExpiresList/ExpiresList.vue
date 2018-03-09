@@ -10,7 +10,7 @@
       <td>{{ props.item.title }}</td>
       <!-- <td class="text-xs-right">{{ props.item.bought }}</td>
       <td >{{ props.item.daysValid }}</td> -->
-      <td >{{ props.item.expires }}</td>
+      <td >{{ props.item.daysLeft }}</td>
       
     </template>
   </v-data-table>
@@ -33,7 +33,7 @@
 export default {
   name: "expires-list",
 
-  props: ["items"],
+  props: ["list"],
 
   data() {
     return {
@@ -41,15 +41,9 @@ export default {
         { text: "Title", value: "title" },
         // { text: "Bought", value: "bought" },
         // { text: "Days valid", value: "daysValid" },
-        { text: "Expires", value: "expires" }
+        { text: "Days left", value: "daysLeft" }
       ]
     };
-  },
-
-  computed: {
-    list() {
-      return Object.keys(this.items).map(key => this.items[key]);
-    }
   }
 };
 </script>

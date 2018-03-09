@@ -18,12 +18,14 @@ const defaultState = {
   "-L7AywwIk-REEQpsCllK": {
     bought: "2018-03-09",
     daysValid: "30",
-    title: "Månadskort"
+    title: "Månadskort",
+    expires: "2018-04-08"
   },
   "-L7AzSOon31lMuPWzJ-i": {
     bought: "2018-03-09",
     daysValid: "20",
-    title: "Test"
+    title: "Test",
+    expires: "2018-03-29"
   }
 };
 
