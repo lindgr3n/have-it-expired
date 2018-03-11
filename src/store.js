@@ -9,7 +9,8 @@ import {
   signOutUser,
   addItemForUser,
   addUser,
-  loadItemsForUser
+  loadItemsForUser,
+  deleteItemForUser
 } from "./firebase";
 import logger from "./logger";
 
@@ -151,10 +152,30 @@ export default new Vuex.Store({
       const loadItemsPromise = loadItemsForUser(state.user);
       loadItemsPromise
         .then(data => {
-          const items = Object.values(data.val()).map(item => item);
+          const reponse = data.val();
+          // Store key on item object
+          const items = Object.keys(reponse).map(key => {
+            return Object.assign({}, reponse[key], { key });
+          });
           // Object.keys(data);
           commit("setLoading", { loading: false });
           commit("setItems", items);
+        })
+        .catch(error => {
+          logger.info(error.message);
+          commit("setError", error.message);
+        });
+    },
+
+    deleteItem({ commit, state, dispatch }, { key }) {
+      commit("setItemState", { type: "remove" });
+      const deleteItemsPromise = deleteItemForUser(state.user, key);
+      deleteItemsPromise
+        .then(() => {
+          commit("setLoading", { loading: false });
+          // Trigger refresh
+          dispatch("loadItems"); // TODO: make load listen on on instead of once
+          commit("setItemState", { type: "success" });
         })
         .catch(error => {
           logger.info(error.message);

@@ -133,3 +133,20 @@ export function loadItemsForUser(user) {
       });
   });
 }
+
+export function deleteItemForUser(user, key) {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref(`items/${user.key}/items`)
+      .child(key)
+      .remove()
+      .then(data => {
+        resolve(data);
+        return;
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}

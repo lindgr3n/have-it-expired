@@ -1,5 +1,5 @@
 <template>
-  <expires-list :list="list" :loading="loading"/>
+  <expires-list :list="list" :loading="loading" :deleteItem="deleteItem" />
 </template>
 
 <script>
@@ -12,6 +12,12 @@ export default {
 
   components: {
     "expires-list": ExpiresList
+  },
+
+  methods: {
+    deleteItem(item) {
+      this.$store.dispatch("deleteItem", { key: item.key });
+    }
   },
 
   computed: {
