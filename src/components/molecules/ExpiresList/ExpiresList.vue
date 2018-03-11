@@ -6,6 +6,7 @@
     v-bind:pagination.sync="defaultSort"
     class="elevation-1 expireslist"
     :loading="loading"
+    no-data-text="Plese hold while im checking the archive for records..."
     >
     <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
     <template slot="items" slot-scope="props">
@@ -20,18 +21,6 @@
 </template>
 
 <script>
-/*
-<v-list>
-      <v-list-tile v-for="item in items" :key="item.title" @click="">
-        <v-list-tile-content>
-          <v-list-tile-title v-text="item.title"></v-list-tile-title>
-        </v-list-tile-content>
-        <v-list-tile-avatar>
-          30
-        </v-list-tile-avatar>
-      </v-list-tile>
-    </v-list>
-*/
 export default {
   name: "expires-list",
 
