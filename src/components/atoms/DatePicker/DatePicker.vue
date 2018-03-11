@@ -19,7 +19,7 @@
         prepend-icon="event"
         readonly
       ></v-text-field>
-      <v-date-picker v-model="date" no-title scrollable>
+      <v-date-picker v-model="date" no-title scrollable first-day-of-week="1">
         <v-spacer></v-spacer>
         <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
         <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "v-date",
 
@@ -36,7 +37,7 @@ export default {
     return {
       menu: false,
       modal: false,
-      date: ""
+      date: moment().format("YYYY-MM-DD")
     };
   },
 
