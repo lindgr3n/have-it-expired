@@ -6,7 +6,7 @@
   v-bind:pagination.sync="defaultSort"
   class="elevation-1 expireslist"
   :loading="loading"
-  no-data-text="Plese hold while im checking the archive for records..."
+  :no-data-text="dataText"
   >
     <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
     <template slot="items" slot-scope="props">
@@ -31,7 +31,7 @@
 export default {
   name: "expires-list",
 
-  props: ["list", "loading", "deleteItem"],
+  props: ["list", "loading", "deleteItem", "dataText"],
 
   data() {
     return {

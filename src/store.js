@@ -148,17 +148,20 @@ export default new Vuex.Store({
     },
 
     loadItems({ commit, state }) {
-      commit("setLoading", { loading: true });
+      commit("setItemState", { type: "fetching" });
       const loadItemsPromise = loadItemsForUser(state.user);
       loadItemsPromise
         .then(data => {
-          const reponse = data.val();
-          // Store key on item object
-          const items = Object.keys(reponse).map(key => {
-            return Object.assign({}, reponse[key], { key });
-          });
+          const response = data.val();
+          let items = [];
+          if (response) {
+            // Store key on item object
+            items = Object.keys(response).map(key => {
+              return Object.assign({}, response[key], { key });
+            });
+          }
           // Object.keys(data);
-          commit("setLoading", { loading: false });
+          commit("setItemState", { type: "success" });
           commit("setItems", items);
         })
         .catch(error => {

@@ -1,5 +1,5 @@
 <template>
-  <expires-list :list="list" :loading="loading" :deleteItem="deleteItem" />
+  <expires-list :list="list" :loading="loading" :deleteItem="deleteItem" :dataText="dataText" />
 </template>
 
 <script>
@@ -30,7 +30,13 @@ export default {
     },
 
     loading() {
-      return this.$store.getters.loading;
+      return this.$store.getters.itemState.type === "fetching";
+    },
+
+    dataText() {
+      return this.loading
+        ? "Plese hold while im checking the archive for records..."
+        : "No data available";
     }
   }
 };
