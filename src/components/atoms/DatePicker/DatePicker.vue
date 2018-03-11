@@ -29,15 +29,15 @@
 </template>
 
 <script>
-import moment from "moment";
 export default {
   name: "v-date",
+  props: ["value"],
 
   data() {
     return {
       menu: false,
       modal: false,
-      date: moment().format("YYYY-MM-DD")
+      date: this.value
     };
   },
 
