@@ -17,6 +17,20 @@ export default {
     onSubmit(input) {
       this.$store.dispatch("addItem", input);
     }
+  },
+
+  computed: {
+    itemState() {
+      return this.$store.getters.itemState;
+    }
+  },
+
+  watch: {
+    itemState({ type }) {
+      if (type === "success") {
+        this.$router.push("/");
+      }
+    }
   }
 };
 </script>

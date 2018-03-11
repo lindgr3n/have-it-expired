@@ -21,7 +21,8 @@ export default new Vuex.Store({
     user: null,
     loading: false,
     error: null,
-    appState: null
+    appState: null,
+    itemState: { type: null, item: null }
   },
   getters: {
     user(state) {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     },
     appState(state) {
       return state.appState;
+    },
+    itemState(state) {
+      return state.itemState;
     }
   },
   mutations: {
@@ -65,6 +69,9 @@ export default new Vuex.Store({
     },
     clearError(state) {
       state.error = null;
+    },
+    setItemState(state, { type, item = null }) {
+      state.itemState = { type, item };
     }
   },
   actions: {
@@ -120,7 +127,7 @@ export default new Vuex.Store({
 
     addItem({ commit, state }, item) {
       commit("clearError");
-
+      commit("setItemState", { type: "saving" });
       // calculate expires
       const expires = calculateExpires(item.bought, item.daysValid);
       item.expires = expires;
@@ -130,10 +137,12 @@ export default new Vuex.Store({
           const key = data.key;
           const newItem = Object.assign({}, item, { id: key });
           commit("addItem", newItem);
+          commit("setItemState", { type: "success", item: newItem });
         })
         .catch(error => {
           logger.info(error.message);
           commit("setError", error.message);
+          commit("setItemState", { type: "error" });
         });
     },
 
