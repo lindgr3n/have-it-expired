@@ -2,9 +2,11 @@
   <v-app>
     <div id="app" v-if="isAppLoaded">
       <div id="nav" v-if="user">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/register">Register</router-link>
-        <router-link to="/about">About</router-link>
+        <div>
+          <router-link class="spacer" to="/">Home</router-link>
+          <router-link class="spacer" to="/register">Register</router-link>
+          <router-link class="spacer" to="/about">About</router-link>
+        </div>
         <button @click="logout">Logout</button>
       </div>
       <router-view/>
@@ -54,6 +56,13 @@ export default {
 }
 #nav {
   padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: column;
+}
+
+.spacer {
+  padding-right: 20px;
 }
 
 #nav a {
