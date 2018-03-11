@@ -21,7 +21,7 @@ export default new Vuex.Store({
     user: null,
     loading: false,
     error: null,
-    appLoading: false
+    appState: null
   },
   getters: {
     user(state) {
@@ -36,8 +36,8 @@ export default new Vuex.Store({
     loading(state) {
       return state.loading;
     },
-    appLoading(state) {
-      return state.appLoading;
+    appState(state) {
+      return state.appState;
     }
   },
   mutations: {
@@ -57,8 +57,8 @@ export default new Vuex.Store({
     setLoading(state, { loading }) {
       state.loading = loading;
     },
-    setAppLoading(state, { loading }) {
-      state.appLoading = loading;
+    setAppState(state, { type }) {
+      state.appState = type;
     },
     setError(state, message) {
       state.error = message;
@@ -138,13 +138,13 @@ export default new Vuex.Store({
     },
 
     loadItems({ commit, state }) {
-      commit("setAppLoading", { loading: true });
+      commit("setLoading", { loading: true });
       const loadItemsPromise = loadItemsForUser(state.user);
       loadItemsPromise
         .then(data => {
           const items = Object.values(data.val()).map(item => item);
           // Object.keys(data);
-          commit("setAppLoading", { loading: false });
+          commit("setLoading", { loading: false });
           commit("setItems", items);
         })
         .catch(error => {

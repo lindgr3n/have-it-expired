@@ -22,7 +22,7 @@ new Vue({
     logger
   },
   created() {
-    this.$store.commit("setLoading", { loading: true });
+    this.$store.commit("setAppState", { type: "loading" });
     onAuthenticationChanged().then(user => {
       if (user) {
         this.$store.commit("setUser", user);
@@ -30,7 +30,7 @@ new Vue({
       } else {
         this.$router.push("/login");
       }
-      this.$store.commit("setLoading", { loading: false });
+      this.$store.commit("setAppState", { type: "success" });
     });
   },
 
