@@ -17,13 +17,13 @@ export default {
   },
 
   mounted() {
-    this.items = this.$store.state.items;
+    this.$store.dispatch("loadItems");
   },
 
-  data() {
-    return {
-      items: []
-    };
+  computed: {
+    items() {
+      return this.$store.getters.items;
+    }
   }
 };
 </script>

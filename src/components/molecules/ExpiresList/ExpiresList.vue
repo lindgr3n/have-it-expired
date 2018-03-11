@@ -5,7 +5,9 @@
     hide-actions
     v-bind:pagination.sync="defaultSort"
     class="elevation-1 expireslist"
+    :loading="loading"
     >
+    <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
     <template slot="items" slot-scope="props">
       <td class="text-xs-left">{{ props.item.title }}</td>
       <td class="text-xs-left">{{ props.item.bought }}</td>
@@ -33,7 +35,7 @@
 export default {
   name: "expires-list",
 
-  props: ["list"],
+  props: ["list", "loading"],
 
   data() {
     return {

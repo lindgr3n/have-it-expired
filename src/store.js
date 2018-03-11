@@ -8,39 +8,20 @@ import {
   signupUser,
   signOutUser,
   addItemForUser,
-  addUser
+  addUser,
+  loadItemsForUser
 } from "./firebase";
 import logger from "./logger";
 
 Vue.use(Vuex);
 
-const defaultState = {
-  "-L7AywwIk-REEQpsCllK": {
-    bought: "2018-03-09",
-    daysValid: "30",
-    title: "Månadskort",
-    expires: "2018-04-08"
-  },
-  "-L7AzSOon31lMuPWzJ-i": {
-    bought: "2018-03-09",
-    daysValid: "20",
-    title: "Test",
-    expires: "2018-03-29"
-  },
-  "-L7AzSA5n31lMuPWzJ-i": {
-    bought: "2018-02-20",
-    daysValid: "30",
-    title: "Test",
-    expires: "2018-03-22"
-  }
-};
-
 export default new Vuex.Store({
   state: {
-    items: defaultState,
+    items: {},
     user: null,
     loading: false,
-    error: null
+    error: null,
+    appLoading: false
   },
   getters: {
     user(state) {
@@ -54,6 +35,9 @@ export default new Vuex.Store({
     },
     loading(state) {
       return state.loading;
+    },
+    appLoading(state) {
+      return state.appLoading;
     }
   },
   mutations: {
@@ -72,6 +56,9 @@ export default new Vuex.Store({
     setLoading(state, { loading }) {
       state.loading = loading;
     },
+    setAppLoading(state, { loading }) {
+      state.appLoading = loading;
+    },
     setError(state, message) {
       state.error = message;
     },
@@ -86,7 +73,11 @@ export default new Vuex.Store({
       const loginPromise = signInUser(payload);
       loginPromise
         .then(user => {
-          commit("setUser", user);
+          const newUser = Object.assign(
+            {},
+            { key: user.uid, email: user.email }
+          );
+          commit("setUser", newUser);
           // TODO: commit success
         })
         .catch(error => {
@@ -147,6 +138,22 @@ export default new Vuex.Store({
           const key = data.key;
           const newItem = Object.assign({}, item, { id: key });
           commit("addItem", newItem);
+        })
+        .catch(error => {
+          logger.info(error.message);
+          commit("setError", error.message);
+        });
+    },
+
+    loadItems({ commit, state }) {
+      commit("setAppLoading", { loading: true });
+      const loadItemsPromise = loadItemsForUser(state.user);
+      loadItemsPromise
+        .then(data => {
+          const items = Object.values(data.val()).map(item => item);
+          // Object.keys(data);
+          commit("setAppLoading", { loading: false });
+          commit("setItems", items);
         })
         .catch(error => {
           logger.info(error.message);

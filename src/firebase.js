@@ -117,3 +117,19 @@ export function addItemForUser(user, item) {
       });
   });
 }
+
+export function loadItemsForUser(user) {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref(`items/${user.key}/items`)
+      .once("value")
+      .then(data => {
+        resolve(data);
+        return;
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}

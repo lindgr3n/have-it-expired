@@ -1,5 +1,5 @@
 <template>
-  <expires-list :list="list"/>
+  <expires-list :list="list" :loading="loading"/>
 </template>
 
 <script>
@@ -21,6 +21,10 @@ export default {
         const daysLeft = daysToExpire(this.items[key].expires);
         return Object.assign({}, this.items[key], { daysLeft });
       });
+    },
+
+    loading() {
+      return this.$store.getters.loading;
     }
   }
 };
