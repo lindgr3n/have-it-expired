@@ -31,7 +31,7 @@ export default {
 <style scoped>
 .content {
   display: grid;
-  grid-template-columns: 70vw;
+  grid-template-columns: 1fr;
   /* grid-template-rows: repeat(auto-fill, 1fr); */
   /* grid-gap: 20px; */
   justify-content: center;
