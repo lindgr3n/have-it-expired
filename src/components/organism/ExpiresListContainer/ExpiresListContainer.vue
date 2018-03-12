@@ -1,17 +1,32 @@
 <template>
-  <expires-list :list="list" :loading="loading" :deleteItem="deleteItem" :dataText="dataText" />
+  <!-- <expires-list :list="list" :loading="loading" :deleteItem="deleteItem" :dataText="dataText" /> -->
+  <expires-simple-list :list="list" :loading="loading" :deleteItem="deleteItem" :menus="menus"/>  
 </template>
 
 <script>
 import ExpiresList from "@/components/molecules/ExpiresList";
+import ExpiresSimpleList from "@/components/molecules/ExpiresSimpleList";
 import { daysToExpire } from "@/utils/utils";
 export default {
   name: "expires-list-container",
 
   props: ["items"],
 
+  data() {
+    return {
+      menus: [
+        {
+          title: "Delete",
+          icon: "delete",
+          action: this.deleteItem
+        }
+      ]
+    };
+  },
+
   components: {
-    "expires-list": ExpiresList
+    "expires-list": ExpiresList,
+    "expires-simple-list": ExpiresSimpleList
   },
 
   methods: {
