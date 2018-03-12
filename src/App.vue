@@ -1,14 +1,7 @@
 <template>
   <v-app>
     <div id="app" v-if="isAppLoaded">
-      <div id="nav" v-if="user">
-        <div>
-          <router-link class="spacer" to="/">Home</router-link>
-          <router-link class="spacer" to="/register">Register</router-link>
-          <router-link class="spacer" to="/about">About</router-link>
-        </div>
-        <button @click="logout">Logout</button>
-      </div>
+      <app-header v-if="user" :onLogout="logout"/>
       <router-view/>
     </div>
      <div v-if="!isAppLoaded">
@@ -18,8 +11,14 @@
 </template>
 
 <script>
+import Header from "./components/molecules/Header";
+
 export default {
   name: "app",
+
+  components: {
+    "app-header": Header
+  },
 
   computed: {
     user() {
