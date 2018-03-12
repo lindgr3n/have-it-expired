@@ -1,6 +1,6 @@
 <template>
   <v-list>
-    <v-list-tile avatar v-for="item in list" :key="item.key">
+    <v-list-tile class="list-hover" avatar v-for="item in list" :key="item.key" >
       <v-list-tile-content>
         <v-list-tile-title v-text="item.title"></v-list-tile-title>
       </v-list-tile-content>
@@ -42,4 +42,7 @@ export default {
 </script>
 
 <style scoped>
+.list-hover:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
 </style>
