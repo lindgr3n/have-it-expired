@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <app-header v-if="user" :onLogout="logout"/>
+    <app-header :onLogout="logout" :user="user"/>
     <v-content v-if="isAppLoaded">
       <v-container >          
         <router-view/>
