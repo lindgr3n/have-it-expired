@@ -1,10 +1,15 @@
 <template>
-  <v-app>
-    <div id="app" v-if="isAppLoaded">
-      <app-header v-if="user" :onLogout="logout"/>
-      <router-view/>
-    </div>
-     <div v-if="!isAppLoaded">
+  <v-app id="app">
+    <app-header v-if="user" :onLogout="logout"/>
+    <v-content v-if="isAppLoaded">
+      <v-container >          
+        <router-view/>
+      </v-container>
+    </v-content>
+    <v-footer color="indigo" app>
+      <span class="white--text"></span>
+    </v-footer>
+    <div v-if="!isAppLoaded">
       <v-progress-linear :indeterminate="true"></v-progress-linear>
      </div>
   </v-app>
@@ -46,30 +51,4 @@ export default {
 
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  /* color: #2c3e50; */
-}
-#nav {
-  padding: 30px;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-flow: column;
-}
-
-.spacer {
-  padding-right: 20px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

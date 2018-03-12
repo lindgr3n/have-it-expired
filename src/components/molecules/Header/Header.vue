@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar>
+  <v-toolbar color="indigo" dark fixed app>
     <v-spacer></v-spacer>
     <v-toolbar-items>
       <v-btn flat to="/"><v-icon>home</v-icon>Home</v-btn>      
