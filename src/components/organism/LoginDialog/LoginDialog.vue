@@ -1,7 +1,5 @@
 <template>
-  <div class="dialog">
     <v-login :onLogin="onLogin" :loading="loading" :error="error" />
-  </div>
 </template>
 
 <script>
@@ -52,6 +50,6 @@ export default {
 
 <style scoped>
 .dialog {
-  width: 300px;
+  /* width: 300px; */
 }
 </style>
