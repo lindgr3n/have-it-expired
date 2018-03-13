@@ -1,5 +1,13 @@
 {
   "name": "have-it-expired",
+  "description": "Helping you to keep track on things that have an expire date!",
+  "bugs": {
+    "url": "https://github.com/lindgr3n/have-it-expired/issues"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "Johan Lindgren"
+  },
   "version": "0.1.0",
   "private": true,
   "scripts": {
