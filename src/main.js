@@ -1,4 +1,6 @@
 import Vue from "vue";
+import Raven from "raven-js";
+import RavenVue from "raven-js/plugins/vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -6,6 +8,10 @@ import "./registerServiceWorker";
 import firebase, { onAuthenticationChanged } from "./firebase";
 
 Vue.config.productionTip = false;
+
+Raven.config(process.env.VUE_APP_RAVENKEY)
+  .addPlugin(RavenVue, Vue)
+  .install();
 
 // vuetify import
 import Vuetify from "vuetify";

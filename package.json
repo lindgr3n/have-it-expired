@@ -37,6 +37,7 @@
     "babel-jest": "^22.0.4",
     "firebase-tools": "^3.17.6",
     "lint-staged": "^6.0.0",
+    "raven-js": "^3.23.1",
     "vue-template-compiler": "^2.5.13"
   },
   "browserslist": [
