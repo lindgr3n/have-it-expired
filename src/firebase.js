@@ -71,7 +71,7 @@ export function addUser(user) {
     firebase
       .database()
       .ref("users")
-      .child(user.uid)
+      .child(user.key)
       .set(user)
       .then(data => {
         resolve(data);

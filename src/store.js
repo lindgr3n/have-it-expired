@@ -47,8 +47,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser(state, user) {
-      const newUser = Object.assign({}, { key: user.uid, email: user.email });
-      state.user = newUser;
+      state.user = user;
     },
     clearUser(state) {
       state.user = null;
@@ -82,7 +81,11 @@ export default new Vuex.Store({
       const loginPromise = signInUser(payload);
       loginPromise
         .then(user => {
-          commit("setUser", user);
+          const newUser = Object.assign(
+            {},
+            { key: user.uid, email: user.email }
+          );
+          commit("setUser", newUser);
           // TODO: commit success
         })
         .catch(error => {
@@ -97,10 +100,15 @@ export default new Vuex.Store({
       createdUserPromise
         .then(user => {
           // Store user to datbase
-          const addUserPromise = addUser(user);
+          const newUser = Object.assign(
+            {},
+            { key: user.uid, email: user.email }
+          );
+          commit("setUser", newUser);
+          const addUserPromise = addUser(newUser);
           addUserPromise
             .then(() => {
-              commit("setUser", user);
+              commit("setUser", newUser);
             })
             .catch(error => {
               logger.info(error.message);
