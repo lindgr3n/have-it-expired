@@ -49,7 +49,4 @@ export default {
 </script>
 
 <style scoped>
-.dialog {
-  /* width: 300px; */
-}
 </style>
