@@ -1,7 +1,5 @@
 <template>
-  <div class="dialog">
-    <v-signup :onSignup="onSignup" :loading="loading" :error="error"/>
-  </div>
+  <v-signup :onSignup="onSignup" :loading="loading" :error="error"/>
 </template>
 
 <script>
@@ -48,7 +46,4 @@ export default {
 </script>
 
 <style scoped>
-.dialog {
-  width: 300px;
-}
 </style>
