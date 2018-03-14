@@ -14,10 +14,12 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/repo
+    working_directory: ~/circleci-deployment
 
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/circleci-deployment
 
       # Download and cache dependencies
       - restore_cache:
@@ -32,10 +34,12 @@ jobs:
       - run: yarn install
 
       - save_cache:
-          paths:
-            - node_modules
           #key: v1-dependencies-{{ checksum "package.json" }}
           key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths: node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
         
       # run tests!
       - run: CI=true yarn test
