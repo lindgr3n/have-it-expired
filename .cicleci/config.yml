@@ -2,7 +2,7 @@ version: 2
 jobs:
   checkout_code:
     docker:
-      - image: circleci/node:8.9.3
+      - image: circleci/node:8.0
     working_directory: ~/circleci-deployment
     steps:
       - checkout
@@ -20,9 +20,22 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
+  check_versions:
+    docker:
+      - image: circleci/node:8.0
+    working_directory: ~/circleci-deployment
+    steps:
+      - attach_workspace:
+          at: ~/circleci-deployment
+      - run: 
+          name: "Checking versions"
+          command: |
+              node --version
+              npm --version
+      
   check_vulnerabilities:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:8.0
     working_directory: ~/circleci-deployment
     steps:
       - attach_workspace:
@@ -36,7 +49,7 @@ jobs:
             fi
   test_and_report:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:8.0
     working_directory: ~/circleci-deployment
     steps:
       - attach_workspace:
@@ -54,7 +67,7 @@ jobs:
           path: ./coverage/clover.xml
   build:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:8.0
     working_directory: ~/circleci-deployment
     steps:
       - attach_workspace:
@@ -78,7 +91,7 @@ jobs:
           paths: .
   deployment:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:8.0
     working_directory: ~/circleci-deployment
     steps:
       - attach_workspace:
@@ -107,6 +120,9 @@ workflows:
   test_build_deploy:
     jobs:
       - checkout_code
+      - check_versions:
+          requires:
+            - checkout_code
       - check_vulnerabilities:
           requires:
             - checkout_code
