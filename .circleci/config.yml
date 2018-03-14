@@ -116,34 +116,35 @@ jobs:
           #   fi
 workflows:
   version: 2
-  jobs:
-    - checkout_code
-    - check_versions:
-        requires:
-          - checkout_code
-    # - check_vulnerabilities:
-    #     requires:
-    #       - checkout_code
-    - test_and_report:
-        requires:
-          - checkout_code
-    - build:
-        requires:
-          - checkout_code
-        filters:
-          branches:
-            only:
-              - development
-              - master
-              - production
-    - deployment:
-        requires:
-          # - check_vulnerabilities
-          - test_and_report
-          - build
-        filters:
-          branches:
-            only:
-              - development
-              - master
-              - production
+  test_build_and_deploy:
+    jobs:
+      - checkout_code
+      - check_versions:
+          requires:
+            - checkout_code
+      # - check_vulnerabilities:
+      #     requires:
+      #       - checkout_code
+      - test_and_report:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only:
+                - development
+                - master
+                - production
+      - deployment:
+          requires:
+            # - check_vulnerabilities
+            - test_and_report
+            - build
+          filters:
+            branches:
+              only:
+                - development
+                - master
+                - production
