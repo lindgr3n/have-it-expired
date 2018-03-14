@@ -33,20 +33,20 @@ jobs:
               node --version
               npm --version
       
-  check_vulnerabilities:
-    docker:
-      - image: circleci/node:latest
-    working_directory: ~/circleci-deployment
-    steps:
-      - attach_workspace:
-          at: ~/circleci-deployment
-      - run: yarn install
-      - run: |
-            if [ "${CIRCLE_BRANCH}" == "production" ]; then
-              yarn validate:dependencies
-            else
-              yarn validate:dependencies || true
-            fi
+  # check_vulnerabilities:
+  #   docker:
+  #     - image: circleci/node:latest
+  #   working_directory: ~/circleci-deployment
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/circleci-deployment
+  #     - run: yarn install
+  #     - run: |
+  #           if [ "${CIRCLE_BRANCH}" == "production" ]; then
+  #             yarn validate:dependencies
+  #           else
+  #             yarn validate:dependencies || true
+  #           fi
   test_and_report:
     docker:
       - image: circleci/node:latest
@@ -56,7 +56,7 @@ jobs:
           at: ~/circleci-deployment
       - run: yarn install
       - run: CI=true yarn test:coverage
-      - run: yarn reportCoverage
+      # - run: yarn reportCoverage
       - store_artifacts:
           path: ./coverage/clover.xml
           prefix: tests
@@ -121,9 +121,9 @@ workflows:
     - check_versions:
         requires:
           - checkout_code
-    - check_vulnerabilities:
-        requires:
-          - checkout_code
+    # - check_vulnerabilities:
+    #     requires:
+    #       - checkout_code
     - test_and_report:
         requires:
           - checkout_code
@@ -138,7 +138,7 @@ workflows:
               - production
     - deployment:
         requires:
-          - check_vulnerabilities
+          # - check_vulnerabilities
           - test_and_report
           - build
         filters:
