@@ -13,8 +13,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "cross-env vue-cli-service build",
-    "test": "vue-cli-service test --testMatch \"<rootDir>/(|**/*/?(*.)(spec|test).js?(x))\"",
-    "test:coverage": "vue-cli-service test --testMatch \"<rootDir>/(|**/*/?(*.)(spec|test).js?(x))\" --coverage",
+    "test": "vue-cli-service test --testMatch \"<rootDir>/(|**/?(*.)(spec|test).js?(x))\"",
+    "test:coverage": "vue-cli-service test --testMatch \"<rootDir>/(|**/?(*.)(spec|test).js?(x))\" --coverage",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
