@@ -10,8 +10,8 @@
             </v-toolbar>
             <v-card-text>
               <v-form>
-                <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" required :error="showError"></v-text-field>
-                <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password"></v-text-field>
+                <v-text-field prepend-icon="person" v-model="email" label="Email" type="text" required :error="showError" v-on:keyup.enter="submit"></v-text-field>
+                <v-text-field prepend-icon="lock" v-model="password" label="Password" id="password" type="password" v-on:keyup.enter="submit"></v-text-field>
               </v-form>
             </v-card-text>
             <v-card-actions>
