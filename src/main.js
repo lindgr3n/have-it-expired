@@ -32,8 +32,7 @@ new Vue({
     this.$store.commit("setAppState", { type: "loading" });
     onAuthenticationChanged().then(user => {
       if (user) {
-        const newUser = Object.assign({}, { key: user.uid, email: user.email });
-        this.$store.commit("setUser", newUser);
+        this.$store.commit("setUser", user);
         this.$router.push("/");
       } else {
         this.$router.push("/login");

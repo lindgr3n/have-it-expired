@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import { calculateExpires } from "./utils/utils";
+import { userType } from "./model/user";
 
 import {
   signInUser,
@@ -48,7 +49,7 @@ export const getters = {
 
 export const mutations = {
   setUser(state, user) {
-    state.user = user;
+    state.user = userType(user);
   },
   clearUser(state) {
     state.user = null;
@@ -83,8 +84,7 @@ export const actions = {
     const loginPromise = signInUser(payload);
     loginPromise
       .then(user => {
-        const newUser = Object.assign({}, { key: user.uid, email: user.email });
-        commit("setUser", newUser);
+        commit("setUser", user);
         // TODO: commit success
       })
       .catch(error => {
@@ -99,12 +99,11 @@ export const actions = {
     createdUserPromise
       .then(user => {
         // Store user to datbase
-        const newUser = Object.assign({}, { key: user.uid, email: user.email });
-        commit("setUser", newUser);
-        const addUserPromise = addUser(newUser);
+        commit("setUser", user);
+        const addUserPromise = addUser(user);
         addUserPromise
           .then(() => {
-            commit("setUser", newUser);
+            commit("setUser", user);
           })
           .catch(error => {
             logger.info(error.message);

@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { userType } from "./model/user";
 
 const apiKey = process.env.VUE_APP_FIREBASE_KEY;
 const authDomain = `${process.env.VUE_APP_FIREBASE_PROJECTID}.firebaseapp.com`;
@@ -71,8 +72,8 @@ export function addUser(user) {
     firebase
       .database()
       .ref("users")
-      .child(user.key)
-      .set(user)
+      .child(user.uid)
+      .set(userType(user))
       .then(data => {
         resolve(data);
         return;
