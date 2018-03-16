@@ -38,10 +38,12 @@ export default {
   computed: {
     list() {
       // Calculate DaysLeft for each
-      return Object.keys(this.items).map(key => {
-        const daysLeft = daysToExpire(this.items[key].expires);
-        return Object.assign({}, this.items[key], { daysLeft });
-      });
+      return Object.keys(this.items)
+        .map(key => {
+          const daysLeft = daysToExpire(this.items[key].expires);
+          return Object.assign({}, this.items[key], { daysLeft });
+        })
+        .sort((a, b) => (a.expires < b.expires ? -1 : 1));
     },
 
     loading() {
