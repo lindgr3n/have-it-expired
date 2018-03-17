@@ -78,13 +78,13 @@ export const mutations = {
 };
 
 export const actions = {
-  signInUser({ commit }, payload) {
+  signInUser({ commit, dispatch }, payload) {
     commit("clearError");
     // TODO: commit loading
     const loginPromise = signInUser(payload);
     loginPromise
       .then(user => {
-        commit("setUser", user);
+        dispatch("setUser", user);
         // TODO: commit success
       })
       .catch(error => {
@@ -93,17 +93,16 @@ export const actions = {
       });
   },
 
-  signupUser({ commit }, { email, password }) {
+  signupUser({ commit, dispatch }, { email, password }) {
     commit("clearError");
     const createdUserPromise = signupUser({ email, password });
     createdUserPromise
       .then(user => {
         // Store user to datbase
-        commit("setUser", user);
         const addUserPromise = addUser(user);
         addUserPromise
           .then(() => {
-            commit("setUser", user);
+            dispatch("setUser", user);
           })
           .catch(error => {
             logger.info(error.message);
@@ -127,6 +126,11 @@ export const actions = {
         logger.info(error.message);
         commit("setError", error.message);
       });
+  },
+
+  setUser({ commit }, user) {
+    // TODO: update database latest login
+    commit("setUser", user);
   },
 
   addItem({ commit, state }, item) {

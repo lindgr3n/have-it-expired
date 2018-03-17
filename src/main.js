@@ -32,7 +32,7 @@ new Vue({
     this.$store.commit("setAppState", { type: "loading" });
     onAuthenticationChanged().then(user => {
       if (user) {
-        this.$store.commit("setUser", user);
+        this.$store.dispatch("setUser", user);
         this.$router.push("/");
       } else {
         this.$router.push("/login");
