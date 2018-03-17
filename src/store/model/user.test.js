@@ -1,13 +1,13 @@
-import { mutations } from "./store";
+import { mutations } from "./user";
 
-describe("Store", () => {
+describe("Store - user", () => {
   describe("mutations", () => {
     it("should set user correct", () => {
       const { setUser } = mutations;
       const store = { user: null };
 
       setUser(store, { uid: "123", email: "test@test.se" });
-      expect(store.user).toEqual({ key: "123", email: "test@test.se" });
+      expect(store.user).toMatchObject({ key: "123", email: "test@test.se" });
     });
 
     it("should clear use correct", () => {

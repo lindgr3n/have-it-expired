@@ -4,8 +4,8 @@ export const userType = user => {
     {
       key: user.uid,
       email: user.email,
-      lastLogin: user.metadata.lastSignInTime,
-      creationTime: user.metadata.creationTime
+      lastLogin: user.metadata ? user.metadata.lastSignInTime : "",
+      creationTime: user.metadata ? user.metadata.creationTime : ""
     }
   );
 };
